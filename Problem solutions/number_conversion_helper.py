@@ -1,7 +1,7 @@
 #Number base direct conversion 
 #Code from Stack exchange
 #Reference: https://cs.stackexchange.com/questions/10318/the-math-behind-converting-from-any-base-to-any-base-without-going-through-base
-#Reference function/s 1 Starts here
+
 
 def toDigits(n, b):
     """Convert a positive number n to its digit representation in base b."""
@@ -18,8 +18,18 @@ def fromDigits(digits, b):
         n = b * n + d
     return n
 
-def convertBase(digits, b, c):
-    """Convert the digits representation of a number from base b to base c."""
-    return toDigits(fromDigits(digits, b), c)
+def convertNumberToList(number):
+	number = str(number)
+	List = []
+	for item in number:
+		List.append(int(item))
+	return List
 
-#Reference function/s 1 ends here 
+def convertListToNumber(List):
+	return int(''.join(str(item) for item in List))
+
+def convertBase(number, incomingBase, outgoingBase):
+    """Convert the digits representation of a number from base b to base c."""
+    return convertListToNumber(toDigits(fromDigits(convertNumberToList(number), incomingBase), outgoingBase))
+
+
