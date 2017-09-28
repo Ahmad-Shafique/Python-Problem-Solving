@@ -15,4 +15,18 @@ def PlaceInList(List,Input):
 
 
 
+def checkNumberOfDigits(string):
+	number = 0
+	for item in string:
+		if item.isdigit():
+			number +=1
+	return number
+
+def checkNumberOfLetters(string):
+	number = 0
+	for item in string:
+		if item.isalpha():
+			number +=1
+	return number
+
 

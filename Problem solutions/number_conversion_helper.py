@@ -28,7 +28,7 @@ def convertNumberToList(number):
 def convertListToNumber(List):
 	return int(''.join(str(item) for item in List))
 
-def convertBase(number, incomingBase, outgoingBase):
+def convertToBase(number, incomingBase, outgoingBase):
     """Convert the digits representation of a number from base b to base c."""
     return convertListToNumber(toDigits(fromDigits(convertNumberToList(number), incomingBase), outgoingBase))
 
