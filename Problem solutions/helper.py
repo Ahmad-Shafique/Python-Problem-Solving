@@ -1,5 +1,7 @@
 def WhileInputActive(function,List=None):
-        while True:
+	'''Function To take inputs continuously
+	'''
+	while True:
                 inputVariable = input();
                 if (inputVariable is None) or (not inputVariable):
                         break;
