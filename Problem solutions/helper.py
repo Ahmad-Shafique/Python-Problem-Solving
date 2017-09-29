@@ -29,4 +29,8 @@ def checkNumberOfLetters(string):
 			number +=1
 	return number
 
+def ListGenerator(Rule,initialLimit,finalLimit):
+	for value in range(int(initialLimit),int(finalLimit)+1):
+		if(Rule(value)):
+			yield value
 
