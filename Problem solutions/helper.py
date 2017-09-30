@@ -36,3 +36,9 @@ def ListGenerator(Rule,initialLimit,finalLimit):
 		if(Rule(value)):
 			yield value
 
+
+
+#str[::-1] reverses the string
+#str[::2] collects all characters at even indices
+#str[::1] collects all characters at odd indices
+#where str is the string
