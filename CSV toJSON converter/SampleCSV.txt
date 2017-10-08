@@ -1,0 +1,6 @@
+|,|_Name,||,||_Age
+Amazon,,AWS,2
+,,Beanstalk,1
+,,Sales,3
+Facebook CEO,Mark Zukerberg,,
+Google CEO,Sergei Levrov,,

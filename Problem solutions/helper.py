@@ -36,6 +36,15 @@ def ListGenerator(Rule,initialLimit,finalLimit):
 		if(Rule(value)):
 			yield value
 
+def ConvertToUsableFilePath(filePath):
+	newFilePath=""
+	for char in filePath:
+		if(char != '\\'):
+			newFilePath += char
+		else:
+			newFilePath+='\\\\'
+	return newFilePath
+
 
 
 #str[::-1] reverses the string
