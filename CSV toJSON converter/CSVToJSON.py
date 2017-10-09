@@ -152,3 +152,8 @@ def AppendToTemporaryMain(mainItemAsList, temporayItem,listOfTypes,positionChang
 #
 # Incomplete functionality
 #
+
+def ConvertCSVToJSON(CSVFilePath):
+	with open(CSVFilePath) as csvFile:
+		for lineItem in csvFile:
+			print(lineItem)
