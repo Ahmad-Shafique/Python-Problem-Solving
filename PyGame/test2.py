@@ -1,4 +1,3 @@
-#Concept testing... all concepts working
 
 import os
 import sys
@@ -22,6 +21,37 @@ class GlobalVariables:
     total_levels = 1
     screen_size = (800,600)
     caption = 'A mad race'
+    funcList = []
+    paramsList = []
+
+def load_image(name, colorkey=None):
+    fullname = os.path.join('data', name)
+    try:
+        image = pygame.image.load(fullname)
+    except:
+        print ('Cannot load image:', name)
+        raise SystemExit
+    image = image.convert()
+    if colorkey is not None:
+        if colorkey is -1:
+            colorkey = image.get_at((0,0))
+        image.set_colorkey(colorkey, RLEACCEL)
+    return image, image.get_rect()
+
+
+def StoreFunctionAndDraw(function,*params):
+    GlobalVariables.funcList.append(function)
+    GlobalVariables.paramsList.append(*params)
+    function(*params)
+    pygame.display.update()
+
+def DrawEntireStack():
+    functionList=GlobalVariables.funcList
+    paramsList = GlobalVariables.paramsList
+    for function in functionList:
+        index = functionList.index(function)
+        function(*paramsList[index])
+    pygame.display.update()
 
 
 def WriteOnScreen(string,coords=None):
@@ -47,30 +77,13 @@ main_screen.fill(white)
 GlobalVariables.main_screen = main_screen
 
 
-WriteOnScreen('Hello World!!!',(25,100))
+#WriteOnScreen('Hello World!!!',(25,100))
 
-testCPos = (50,200)
-funcList = []
-paramsList = []
-funcList.append(pygame.draw.circle)
-paramsList.append((main_screen,red,(50,200),10))
-pygame.draw.circle(main_screen,red,(50,200),10)
-outCoord = [200,200]
-while True:
-    if(len(funcList)>1):
-        funcList.pop()
-        paramsList.pop()
-    funcList.append(pygame.draw.circle)
-    params = (main_screen,blue,tuple(outCoord),10)
-    paramsList.append(params)
-    funcList[len(funcList)-1](*params)
-    for item in funcList:
-        item(*paramsList[funcList.index(item)])
-    outCoord[0]+= 20
-    outCoord[1]+= 20
-    pygame.display.update()
-    #i = input()
-    
+#pygame.draw.circle(main_screen,red,(50,200),10)
+img=pygame.image.load('main.jpg').convert()
+main_screen.blit(img,(0,0))
+
+
 pygame.display.update()
 
 

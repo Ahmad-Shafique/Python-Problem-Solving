@@ -1,4 +1,4 @@
-# Concept testing... Not all concepts work...
+#Concept testing... all concepts working
 
 import os
 import sys
@@ -48,37 +48,29 @@ GlobalVariables.main_screen = main_screen
 
 
 WriteOnScreen('Hello World!!!',(25,100))
-stackList = []
-stackPosList =[]
+
 testCPos = (50,200)
-stackList.append(pygame.draw.circle(main_screen,red,testCPos,10))
-pygame.display.update()
-print(stackList)
-testPos = [100,250]
+funcList = []
+paramsList = []
+funcList.append(pygame.draw.circle)
+paramsList.append((main_screen,red,(50,200),10))
+pygame.draw.circle(main_screen,red,(50,200),10)
+outCoord = [200,200]
 while True:
-    ttP = tuple(testPos)
-    stackList.append(pygame.draw.circle(main_screen,blue,ttP,10))
-    stackPosList.append(ttP)
+    if(len(funcList)>1):
+        funcList.pop()
+        paramsList.pop()
+    funcList.append(pygame.draw.circle)
+    params = (main_screen,blue,tuple(outCoord),10)
+    paramsList.append(params)
+    funcList[len(funcList)-1](*params)
+    for item in funcList:
+        item(*paramsList[funcList.index(item)])
+    outCoord[0]+= 20
+    outCoord[1]+= 20
     pygame.display.update()
-    print(stackList)
-    print(stackPosList)
-    main_screen.fill(white)
-    print('Filled screen with white color')
-    for shape in stackList:
-        #tp = shape.get_rect()
-        testC = stackPosList[stackList.index(shape)]
-        nMS = pygame.Surface(testC)
-        stackList.append(nMS)
-        stackPosList.append(testC)
-        main_screen.blit(nMS,shape)
-        print('printed this ... ')
-        print(shape)
-    pygame.display.update()
-    testPos[0]+=20
-    testPos[1]+=20
-    stackList.pop()
-    stackPosList.pop()
-    input()
+    #i = input()
     
 pygame.display.update()
+
 
