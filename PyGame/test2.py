@@ -3,6 +3,7 @@ import os
 import sys
 import math
 import pygame
+import time
 
 
 red = (255,0,0)
@@ -55,7 +56,7 @@ def WriteOnScreen(string,coords=None):
         elif not pygame.font: print('Warning! Font not available!!!')
         else:
             font = pygame.font.Font(None, 36)
-            text = font.render(string, 1, (10, 10, 10))
+            text = font.render(string, 1, red)
             if coords is None:
                 coords = text.get_rect(centerx=GlobalVariables.main_screen.get_width()/2)
             GlobalVariables.main_screen.blit(text, coords)
@@ -80,6 +81,29 @@ def DrawLevelOne():
         ImageBlitFunction('m2.png',(GlobalVariables.characterPosition[0],ConvertYCoordinate(GlobalVariables.characterPosition[1])))
     pygame.display.update()
 
+def LevelOneIntro():
+    DrawLevelOne()
+    WriteOnScreen('You are Nathan the Ninja',(200,100))
+    time.sleep(3)
+    DrawLevelOne()
+    WriteOnScreen('You are on your path on discovery of secrets of the universe today...',(0,100))
+    time.sleep(3)
+    DrawLevelOne()
+    WriteOnScreen('Well, to your brain capacity anyway...',(100,100))
+    time.sleep(3)
+    return
+
+def LevelOneEnding():
+    DrawLevelOne()
+    WriteOnScreen('Nathan needs to cross the water body',(200,100))
+    time.sleep(3)
+    DrawLevelOne()
+    WriteOnScreen('He just realised that for every move',(100,100))
+    WriteOnScreen('He had to calculate amount of energy and vector  needed',(0,150))
+    WriteOnScreen('And apply as much',(200,200))
+    time.sleep(3)
+    return
+
 def LevelOne():
     while True:
         clock.tick(60)
@@ -93,7 +117,8 @@ def LevelOne():
             elif event.type == pygame.KEYDOWN and (event.key == ord('d') or event.key == ord('D') or event.key == pygame.K_RIGHT):
                 if GlobalVariables.characterPosition[0] >=550:
                     GlobalVariables.success = True
-                    print("Go to level one ")
+                    GlobalVariables.current_level = 2
+                    return
                 else:
                     GlobalVariables.characterPosition[0] += 20
                     ChangeCharacter()
@@ -123,7 +148,9 @@ print(ConvertYCoordinate(0))
 
 while GlobalVariables.success == True:
     if GlobalVariables.current_level == 1:
+        LevelOneIntro()
         LevelOne()
+        LevelOneEnding()
         GlobalVariables.success = False
     elif GlobalVariables.current_level == 2:
         LevelTwo = None
@@ -131,6 +158,7 @@ while GlobalVariables.success == True:
     elif GlobalVariables.current_level == 3:
         LevelThree = None
         GlobalVariables.success = False
+
 pygame.display.update()
 
 
