@@ -4,6 +4,7 @@ import sys
 import math
 import pygame
 import time
+from pygame.locals import *
 
 
 red = (255,0,0)
@@ -13,13 +14,14 @@ darkBlue = (0,0,128)
 white = (255,255,255)
 black = (0,0,0)
 pink = (255,200,200)
+maroon = (128,0,0)
 
 
 
 
 class GlobalVariables:
-    current_level = 1 
-    total_levels = 1
+    current_level = 1
+    #total_levels = 3
     screen_size = (800,600)
     caption = 'A mad race'
     funcList = []
@@ -65,8 +67,8 @@ def WriteOnScreen(string,coords=None):
         print('Unable to print out the text for some reason ...')
 
 def DrawBackground():
-    pygame.draw.rect(main_screen,black,(0,ConvertYCoordinate(100),800,ConvertYCoordinate(0)))
-    pygame.draw.rect(main_screen,blue,(600,ConvertYCoordinate(100),200,ConvertYCoordinate(50)))
+    pygame.draw.rect(GlobalVariables.main_screen,black,(0,ConvertYCoordinate(100),800,ConvertYCoordinate(0)))
+    pygame.draw.rect(GlobalVariables.main_screen,blue,(600,ConvertYCoordinate(100),200,ConvertYCoordinate(50)))
     pygame.display.update()
 
 def ChangeCharacter():
@@ -124,7 +126,75 @@ def LevelOne():
                     ChangeCharacter()
             
         DrawLevelOne()
-    
+
+
+def LevelTwo():
+    GlobalVariables.main_screen.fill(white)
+    pygame.display.update()
+    pygame.draw.rect(GlobalVariables.main_screen, blue, (0, 200, 800,300))
+    WriteOnScreen('Input the number of steps required to cross the water body', (0, 50))
+    WriteOnScreen('And press Enter', (100, 100))
+    brickCoordsSetOne = [380, 220]
+    brickCoordsSetTwo = [420, 240]
+    inputString = ''
+    runLoop = True
+    while True:
+        if brickCoordsSetOne[1] >= 480 or brickCoordsSetTwo[1] >= 480:
+            break
+        pygame.draw.rect(GlobalVariables.main_screen, maroon,
+                         (brickCoordsSetOne[0], brickCoordsSetOne[1],
+                         10, 20))
+        pygame.draw.rect(GlobalVariables.main_screen, maroon,
+                         (brickCoordsSetTwo[0], brickCoordsSetTwo[1],
+                         10, 20))
+        brickCoordsSetOne[1] += 40
+        brickCoordsSetTwo[1] += 40
+    pygame.display.update()
+    #print('Completed background drawing')
+    runLoop = True
+    while runLoop:
+        clock.tick(60)
+        for event in pygame.event.get():
+            #print('found key ')
+            if event.type == pygame.QUIT:
+                return
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                #print('Found enter key')
+                runLoop = False
+            elif event.type == pygame.KEYDOWN and event.unicode.isdigit():
+                #print('Found alphanumeric')
+                inputString += event.unicode
+    print('completed event loop')
+    try:
+        inputString = inputString.strip()
+        steps = int(inputString)
+    except:
+       # print ('Unable to convert to integer !!!')
+        return
+    #print('completed try catch block')
+    if steps == 13:
+        GlobalVariables.main_screen.fill(white)
+        WriteOnScreen('Correct !!!', (100, 100))
+        WriteOnScreen('Can be expressed in the formula :', (50, 150))
+        WriteOnScreen('Steps = x + 1       where x is number of bricks'
+                      , (0, 200))
+        time.sleep(4)
+        GlobalVariables.main_screen.fill(white)
+        WriteOnScreen('Now Nathan knows math is behind everything', (0,
+                      100))
+        WriteOnScreen('Game Over !!!', (100, 200))
+        #print('Game completed!!!')
+    else:
+        GlobalVariables.main_screen.fill(white)
+        WriteOnScreen('Wrong !!!', (300, 100))
+        WriteOnScreen('Game Over !!!', (100, 200))
+       # print('Game over !!!')
+    #print('Level Two complete !!!')
+    return
+
+
+
+
 
 
 
@@ -148,16 +218,16 @@ print(ConvertYCoordinate(0))
 
 while GlobalVariables.success == True:
     if GlobalVariables.current_level == 1:
+        GlobalVariables.success = False
         LevelOneIntro()
         LevelOne()
         LevelOneEnding()
-        GlobalVariables.success = False
     elif GlobalVariables.current_level == 2:
-        LevelTwo = None
         GlobalVariables.success = False
+        LevelTwo()
     elif GlobalVariables.current_level == 3:
-        LevelThree = None
         GlobalVariables.success = False
+        LevelThree = None
 
 pygame.display.update()
 
