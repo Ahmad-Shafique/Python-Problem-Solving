@@ -17,7 +17,7 @@ pink = (255,200,200)
 
 
 class GlobalVariables:
-    current_level = 1
+    current_level = 1 
     total_levels = 1
     screen_size = (800,600)
     caption = 'A mad race'
@@ -121,20 +121,16 @@ clock = pygame.time.Clock()
 #ImageBlitFunction('main.jpg')
 print(ConvertYCoordinate(0))
 
-LevelOne()
-if GlobalVariables.success == True:
-    print('Go to question')
-    GlobalVariables.success = False
-if GlobalVariables.success == True:
-    LevelTwo = None
-    GlobalVariables.success = False
-if GlobalVariables.success == True:
-    LevelThree = None
-    GlobalVariables.success = False
-
-
-
-
+while GlobalVariables.success == True:
+    if GlobalVariables.current_level == 1:
+        LevelOne()
+        GlobalVariables.success = False
+    elif GlobalVariables.current_level == 2:
+        LevelTwo = None
+        GlobalVariables.success = False
+    elif GlobalVariables.current_level == 3:
+        LevelThree = None
+        GlobalVariables.success = False
 pygame.display.update()
 
 
